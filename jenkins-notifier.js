@@ -66,14 +66,14 @@
     window.webkitNotifications.requestPermission();
   }
 
-  function getMessage(text){
-    var errMsg = text.match(/\d+\) (Failure|Error):\n\s*?([A-z0-9\_\-]+)\S\([A-z]+\)/);
-
-    if (errMsg.length === 4) {
-      return errMsg[1], errMsg[2] + ' -- ' + errMsg[3];
-    } else {
-      return 'Error', 'Error in '+document.title;
+  function get_message(text){
+    var errMsg = text.match(/\d+\) (Failure|Error):\s*?([A-z0-9\_\-]+)\S\([A-z]+\)/);
+    if(errMsg){
+      if(errMsg.length == 3){
+        return errMsg[1], errMsg[0]+" -- "+errMsg[2];
+      }
     }
+    return "Error", "Error in "+document.title;
 
   }
 
