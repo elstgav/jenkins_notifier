@@ -66,10 +66,10 @@
     window.webkitNotifications.requestPermission();
   }
 
-  function get_message(text){
+  function getMessage(text){
     var errMsg = text.match(/\d+\) (Failure|Error):\s*?([A-z0-9\_\-]+)\S\([A-z]+\)/);
     if(errMsg){
-      if(errMsg.length == 3){
+      if(errMsg.length === 3){
         return errMsg[1], errMsg[0]+" -- "+errMsg[2];
       }
     }
@@ -86,15 +86,15 @@
     fc.setAttribute('src',bad_gif);
   }
 
-  function dispatch_msg_jenk(title,mes_1,mes_2){
-    var mes=window.webkitNotifications.createNotification(title,mes_1,mes_2);
+  function dispatchMsgJenk(title, mes_1, mes_2){
+    var mes = window.webkitNotifications.createNotification(title,mes_1,mes_2);
     mes.show();
     setTimeout(function(){
       mes.cancel();
     }, 5000);
   }
 
-  function screen_response(text){
+  function screenResponse(text){
     console.log('screened');
     console.log(text);
 
@@ -102,12 +102,12 @@
       console.log('Base exception found in');
       console.log(text);
       var processed = getMessage(text);
-      dispatch_msg_jenk('JENKERR', processed[0], processed[1]);
+      dispatchMsgJenk('JENKERR', processed[0], processed[1]);
       setBad();
     }
 
     if (text.indexOf('SUCCESS') !== -1) {
-      dispatch_msg_jenk('JENKSUCC', 'Jenkins Passed', 'With flying Colors!!!');
+      dispatchMsgJenk('JENKSUCC', 'Jenkins Passed', 'With flying Colors!!!');
       setSmiley();
     }
   }
@@ -119,7 +119,7 @@
       // var count = Ajax.activeRequestCount--;
 
       if (xhr.responseText) {
-        screen_response(xhr.responseText);
+        screenResponse(xhr.responseText);
       }
     }
   });
